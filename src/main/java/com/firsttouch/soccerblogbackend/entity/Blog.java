@@ -2,6 +2,7 @@ package com.firsttouch.soccerblogbackend.entity;
 
 
 import lombok.Data;
+import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 
@@ -19,8 +20,14 @@ public class Blog {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "writer")
+    private String writer;
+
     @Column(name = "content")
     private String content;
+
+    @Column(name = "imgurl")
+    private String imgurl;
 
 //    public Blog() {  }
 //    public Blog(String title, String content){
