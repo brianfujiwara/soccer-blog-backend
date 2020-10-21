@@ -7,16 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/blogs")
 public class SliderController {
@@ -27,7 +26,7 @@ public class SliderController {
         this.blogRepository=blogRepository;
     }
 
-    @GetMapping("/slider")
+    @GetMapping("/slider") //For the carrousel
     Collection<Blog> sliders(){
 
         List<Blog> allpost = blogRepository.findAll(Sort.by(Sort.Direction.DESC,"id"));
@@ -43,7 +42,7 @@ public class SliderController {
 
     }
 
-    @GetMapping("/passpost")
+    @GetMapping("/passpost")  //For the post on bottom
     Collection<Blog> passPost(){
         List<Blog> allpost = blogRepository.findAll();
         Collection<Blog> top3 = new ArrayList<Blog>() ;
