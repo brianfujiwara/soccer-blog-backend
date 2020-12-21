@@ -38,6 +38,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // disabling csrf because we are using JWT to authenticate
-        http.cors().and().csrf().disable().authorizeRequests().antMatchers("/blogs/**").permitAll().and().formLogin();
+        http.cors().and().csrf().disable()
+                .authorizeRequests().antMatchers("/blogs/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                    .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/", true)
+                .passwordParameter("password")
+                .usernameParameter("username")
+        .permitAll().and().logout().permitAll();
     }
 }

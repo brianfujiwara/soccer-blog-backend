@@ -9,12 +9,12 @@ import java.util.Collection;
 
 public class MyUserDetails implements UserDetails {
 
-    private String userName;
+    private User userName;
 
     public MyUserDetails(){
 
     }
-    public MyUserDetails(String userName){
+    public MyUserDetails(User userName){
         this.userName = userName;
     }
     @Override
@@ -24,12 +24,12 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "pass";
+        return userName.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return userName;
+        return userName.getUsername();
     }
 
     @Override
