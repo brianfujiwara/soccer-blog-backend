@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,19 +36,22 @@ public class AuthController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-//    @Autowired
-//    private AuthenticationManager authenticationManager;
+    @Autowired
+    AuthenticationManager authenticationManager;
 
 
-//    @GetMapping("/signin")
-//    public ResponseEntity<?> signIn(@RequestBody LoginRequest loginRequest){
-//
-//        authenticationManager
-//                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-//
-//
-//
-//    }
+    @GetMapping("/signin")
+    public ResponseEntity<?> signIn(@RequestBody LoginRequest loginRequest){
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsername(),
+                        loginRequest.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<?> signUpUser(@RequestBody RegisterRequest registerRequest){
