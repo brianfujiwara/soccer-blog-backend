@@ -1,5 +1,6 @@
-package com.firsttouch.soccerblogbackend.entity;
+package com.firsttouch.soccerblogbackend.security;
 
+import com.firsttouch.soccerblogbackend.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
