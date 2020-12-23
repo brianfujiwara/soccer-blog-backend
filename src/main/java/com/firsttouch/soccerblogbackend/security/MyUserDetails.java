@@ -11,10 +11,15 @@ import java.util.Collection;
 public class MyUserDetails implements UserDetails {
 
     private User userName;
-
+    private Long id;
     public MyUserDetails(){
 
     }
+
+    public Long getId() {
+        return id;
+    }
+
     public MyUserDetails(User userName){
         this.userName = userName;
     }

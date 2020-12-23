@@ -27,19 +27,20 @@ public class JwtCreator {
         Date expireDay = new Date(now.getTime() + jwtExpirationInMs);
 
         return Jwts.builder()
-                .setSubject(Long.toString(myUser.getId()))
+                .setSubject(myUser.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(expireDay)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                //.signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }
 
-    public Long getUserIdFromJWT(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
-                .parseClaimsJws(token)
-                .getBody();
-
-        return Long.parseLong(claims.getSubject());
-    }
+//    public Long getUserIdFromJWT(String token) {
+//        Claims claims = Jwts.parser()
+//                .setSigningKey(jwtSecret)
+//                .parseClaimsJws(token)
+//                .getBody();
+//
+//        return Long.parseLong(claims.getSubject());
+//    }
 }
