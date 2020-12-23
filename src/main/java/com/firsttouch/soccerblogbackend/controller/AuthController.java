@@ -3,10 +3,12 @@ package com.firsttouch.soccerblogbackend.controller;
 import com.firsttouch.soccerblogbackend.entity.ERole;
 import com.firsttouch.soccerblogbackend.entity.Role;
 import com.firsttouch.soccerblogbackend.entity.User;
+import com.firsttouch.soccerblogbackend.payload.request.JwtResponse;
 import com.firsttouch.soccerblogbackend.payload.request.LoginRequest;
 import com.firsttouch.soccerblogbackend.payload.request.RegisterRequest;
 import com.firsttouch.soccerblogbackend.repository.RoleRepository;
 import com.firsttouch.soccerblogbackend.repository.UserRepository;
+import com.firsttouch.soccerblogbackend.security.JwtCreator;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,8 +41,11 @@ public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
 
+    @Autowired
+    JwtCreator tokenMaker;
 
-    @GetMapping("/signin")
+
+    @PostMapping("/signin")
     public ResponseEntity<?> signIn(@RequestBody LoginRequest loginRequest){
 
         Authentication authentication = authenticationManager.authenticate(
@@ -49,7 +54,9 @@ public class AuthController {
                         loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = tokenMaker.generateToken(authentication);
 
+        return ResponseEntity.ok(new JwtResponse(jwt));
 
     }
 
