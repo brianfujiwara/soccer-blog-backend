@@ -4,10 +4,7 @@ public class JwtResponse {
 
     private String accessToken;
     private String tokenType = "Bearer";
-    private String jk = "klsjflkdsjflkdsj";
-    private String gk = "ioouoiu";
-    private String jt = "34234324";
-    private String rt = "sdfsdfs";
+
 
     public JwtResponse(String accessToken){
 
